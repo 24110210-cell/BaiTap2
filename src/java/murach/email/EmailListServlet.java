@@ -3,52 +3,46 @@ package murach.email;
 import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-
 import murach.business.User;
-import murach.data.UserDB;
 
-public class EmailListServlet extends HttpServlet  {
+public class EmailListServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, 
-                          HttpServletResponse response) 
-                          throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
         String url = "/index.html";
-
-        // get current action
         String action = request.getParameter("action");
         if (action == null) {
-            action = "join";  // default action
+            action = "join";
         }
-        // perform action and set URL to appropriate page
-        if (action.equals("join")) {
-            url = "/index.html";    // the "join" page
-        }
-        else if (action.equals("add")) {                
-            // get parameters from the request
+
+        if (action.equals("add")) {
+            // Lấy dữ liệu từ Request
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
+            String dateOfBirth = request.getParameter("dateOfBirth");
+            String hearFrom = request.getParameter("hearFrom");
+            String wantsUpdates = request.getParameter("wantsUpdates");
+            String emailAnnouncements = request.getParameter("emailAnnouncements");
+            String contactVia = request.getParameter("contactVia");
 
-            // store data in User object and save User object in db
-            User user = new User(firstName, lastName, email);
-            UserDB.insert(user);
-            
-            // set User object in request object and set URL
+            // Khởi tạo đối tượng User
+            User user = new User();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setDateOfBirth(dateOfBirth);
+            user.setHearFrom(hearFrom);
+            user.setWantsUpdates(wantsUpdates != null ? "Yes" : "No");
+            user.setEmailAnnouncements(emailAnnouncements != null ? "Yes" : "No");
+            user.setContactVia(contactVia);
+
             request.setAttribute("user", user);
-            url = "/thanks.jsp";   // the "thanks" page
+            url = "/thanks.jsp";
         }
         
-        // forward request and response objects to specified URL
-        getServletContext()
-            .getRequestDispatcher(url)
-            .forward(request, response);
-    }    
-    @Override
-    protected void doGet(HttpServletRequest request, 
-                         HttpServletResponse response) 
-                         throws ServletException, IOException {
-        doPost(request, response);
-    }    
+        getServletContext().getRequestDispatcher(url).forward(request, response);
+    }
 }
