@@ -1,0 +1,86 @@
+/* Cấu hình chung cho trang */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    margin: 20px 30px;
+    color: #333333;
+}
+
+/* Định dạng tiêu đề */
+h1, h2 {
+    color: teal;
+    font-size: 16pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: teal;
+    font-size: 11pt;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Thẻ mô tả bên dưới tiêu đề chính */
+p {
+    margin-bottom: 15px;
+}
+
+/* Định dạng Nhãn (Label) cho thông tin cá nhân */
+label {
+    float: left;
+    width: 8em;
+    font-weight: normal;
+    margin-bottom: 0.5em;
+    line-height: 1.8em;
+}
+
+/* Kiểu dáng cho Ô nhập liệu text, email */
+input[type="text"], 
+input[type="email"],
+select {
+    width: 16em;
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 2px 4px;
+    border: 1px solid #7f9db9;
+    box-sizing: border-box;
+}
+
+/* Định dạng ô Radio và Checkbox */
+input[type="radio"], 
+input[type="checkbox"] {
+    margin-right: 0.3em;
+    vertical-align: middle;
+}
+
+/* Đảm bảo dòng xuống hàng sạch sẽ */
+br {
+    clear: both;
+}
+
+/* Định dạng nhãn đặc thù cho phần Please contact me by */
+label.contact-label {
+    width: 12em;
+    float: left;
+}
+
+/* Nút Submit */
+input[type="submit"], #submit {
+    margin-top: 15px;
+    padding: 3px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #707070;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #e0e0e0;
+}
+
+/* Logo */
+.logo {
+    max-height: 80px;
+    display: block;
+    margin-bottom: 10px;
+}
