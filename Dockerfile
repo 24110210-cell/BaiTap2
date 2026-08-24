@@ -1,20 +1,11 @@
-FROM eclipse-temurin:17-jdk
+# Sử dụng Tomcat 10 đi kèm Java 21 (Bản mới nhất đã fix triệt để lỗi CgroupV2)
+FROM tomcat:10.1-jdk21-openjdk-slim
 
-ENV CATALINA_HOME /usr/local/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
+# Xóa toàn bộ ứng dụng mặc định
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Cài đặt Tomcat 9 phiên bản mới hơn
-RUN mkdir -p "$CATALINA_HOME"
-WORKDIR $CATALINA_HOME
-RUN curl -O https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.85/bin/apache-tomcat-9.0.85.tar.gz \
-    && tar -xvf apache-tomcat-9.0.85.tar.gz --strip-components=1 \
-    && rm apache-tomcat-9.0.85.tar.gz
-
-# Xóa ứng dụng mặc định và copy WAR
-RUN rm -rf webapps/ROOT
-COPY dist/mail.war webapps/ROOT.war
+# Copy file war của bạn vào làm app chính
+COPY dist/mail.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
-
-# Chạy Tomcat kèm tham số bỏ qua lỗi cgroupv2 mbean
 CMD ["catalina.sh", "run"]
